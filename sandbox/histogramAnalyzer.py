@@ -1,6 +1,6 @@
 '''
 Copyright (c) 2020 Hao Da (Kevin) Dong, Girish Ethirajan, Anshuman Singh
-@file       opencvGMMTest.py
+@file       histogramAnalyzer.py
 @date       2020/04/02
 @brief      TBD
 @license    This project is released under the BSD-3-Clause license.
@@ -8,6 +8,7 @@ Copyright (c) 2020 Hao Da (Kevin) Dong, Girish Ethirajan, Anshuman Singh
 
 import numpy as np
 import cv2
+import matplotlib.pyplot as plt
 
 image = cv2.imread('buoys.png')
 
