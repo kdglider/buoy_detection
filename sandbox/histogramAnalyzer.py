@@ -7,41 +7,28 @@ Copyright (c) 2020 Hao Da (Kevin) Dong, Girish Ethirajan, Anshuman Singh
 '''
 
 import numpy as np
-import cv2
 import matplotlib.pyplot as plt
 
-image = cv2.imread('buoys.png')
+# Load processing times (in milliseconds) from text file
+processingTimes = 1000 * np.loadtxt("hw3data.txt")
 
-height = image.shape[0]
-width = image.shape[1]
+# Create x-values to plot pitch against
+xValues = np.arange(0, np.size(processingTimes), 1)
 
-imageHSV = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+# Create a figure and plot rawPitch (truncating trailing values to the length matches),
+# filteredPitch, its mean and its standard deviation
+fig = plt.figure()
+sp1 = fig.add_subplot(1,2,1)
+sp1.plot(xValues, processingTimes, c='r')
+sp1.set_title('Raspberry Pi Camera Frame Processing Times')
+sp1.set_xlabel('Frame Number')
+sp1.set_ylabel('Processing Time (ms)')
 
-'''
-dataset = np.reshape(imageHSV, (height*width, 3))
+sp2 = fig.add_subplot(1,2,2)
+sp2.hist(processingTimes, bins=30, edgecolor='black')
+sp2.set_title('Processing Time Histogram')
+sp2.set_xlabel('Processing Time (ms)')
+sp2.set_ylabel('Number of Frames')
 
-gmm = cv2.ml.EM_create()
-gmm.setClustersNumber(5)
-gmm.trainEM(dataset)
-gmm.save('a.txt')
-'''
-
-gmm = cv2.ml.EM_load('hsvParams.txt')
-
-means = gmm.getMeans()
-
-#output = np.zeros((height, width, 3))
-output = image.copy()
-
-for i in range(height):
-    for j in range(width):
-        result = gmm.predict2(image[i,j,:])
-        cluster = result[0][1]
-        output[i,j,:] = means[int(cluster), :]
-
-output = cv2.cvtColor(output, cv2.COLOR_HSV2BGR)
-
-cv2.imshow('Image', image)
-cv2.imshow('HSV Image', imageHSV)
-cv2.imshow('Output', output)
-cv2.waitKey(0)
+# Display all plots
+plt.show()
