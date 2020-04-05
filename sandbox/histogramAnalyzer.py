@@ -2,33 +2,49 @@
 Copyright (c) 2020 Hao Da (Kevin) Dong, Girish Ethirajan, Anshuman Singh
 @file       histogramAnalyzer.py
 @date       2020/04/02
-@brief      TBD
+@brief      Creates a histogram for each colour channel using the training images
 @license    This project is released under the BSD-3-Clause license.
 '''
 
 import numpy as np
+import cv2
 import matplotlib.pyplot as plt
 
-# Load processing times (in milliseconds) from text file
-processingTimes = 1000 * np.loadtxt("hw3data.txt")
 
-# Create x-values to plot pitch against
-xValues = np.arange(0, np.size(processingTimes), 1)
+trainingImage = cv2.imread('training_set/orangeTrainingSet.png')
+trainingSet = []
 
-# Create a figure and plot rawPitch (truncating trailing values to the length matches),
-# filteredPitch, its mean and its standard deviation
+# Append pixel to trainingSet if it is not black
+for row in trainingImage:
+    for pixel in row:
+        if (np.all(pixel == 0) == False):
+            trainingSet.append(pixel)
+
+# Convert to NumPy array
+trainingSet = np.array(trainingSet)
+
+# Plot histograms
 fig = plt.figure()
-sp1 = fig.add_subplot(1,2,1)
-sp1.plot(xValues, processingTimes, c='r')
-sp1.set_title('Raspberry Pi Camera Frame Processing Times')
-sp1.set_xlabel('Frame Number')
-sp1.set_ylabel('Processing Time (ms)')
+sp1 = fig.add_subplot(3,1,1)
+sp1.hist(trainingSet[:,0], bins=255)
+sp1.set_title('Blue Channel Histogram')
+sp1.set_xlabel('Blue Channel Value')
+sp1.set_ylabel('Number of Pixels')
 
-sp2 = fig.add_subplot(1,2,2)
-sp2.hist(processingTimes, bins=30, edgecolor='black')
-sp2.set_title('Processing Time Histogram')
-sp2.set_xlabel('Processing Time (ms)')
-sp2.set_ylabel('Number of Frames')
+sp2 = fig.add_subplot(3,1,2)
+sp2.hist(trainingSet[:,1], bins=255)
+sp2.set_title('Green Channel Histogram')
+sp2.set_xlabel('Green Channel Value')
+sp2.set_ylabel('Number of Pixels')
+
+sp3 = fig.add_subplot(3,1,3)
+sp3.hist(trainingSet[:,2], bins=255)
+sp3.set_title('Red Channel Histogram')
+sp3.set_xlabel('Red Channel Value')
+sp3.set_ylabel('Number of Pixels')
 
 # Display all plots
+plt.tight_layout()
 plt.show()
+
+
