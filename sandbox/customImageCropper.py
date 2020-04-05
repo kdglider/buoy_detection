@@ -2,7 +2,7 @@
 Copyright (c) 2020 Hao Da (Kevin) Dong
 @file       customImageCropper.py
 @date       2020/04/02
-@brief      TBD
+@brief      Application for user to crop an image using arbitrary mouse clicks
 @license    This project is released under the BSD-3-Clause license.
 '''
 
@@ -20,10 +20,10 @@ def recordClick(event, x, y, flags, param):
 
 
 # Read in image to crop
-image = cv2.imread('training_set/frame1.png')
+image = cv2.imread('training_set/frame18.png')
 
 # Create window to detect mouse events
-cv2.namedWindow("Image")
+cv2.namedWindow("Image", flags=cv2.WINDOW_NORMAL)
 cv2.setMouseCallback("Image", recordClick)
 
 # List to record mouse clicks
@@ -56,5 +56,5 @@ cv2.imshow('Cropped Image', croppedImage)
 # Save image if user presses 's'
 key = cv2.waitKey(0) & 0xFF
 if key == ord("s"):
-    cv2.imwrite('green.png', croppedImage)
+    cv2.imwrite('training_set/orange.png', croppedImage)
 
