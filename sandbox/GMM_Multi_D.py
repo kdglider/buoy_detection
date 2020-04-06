@@ -3,24 +3,10 @@
 import matplotlib.pyplot as plt
 from matplotlib import style
 style.use('fivethirtyeight')
-from sklearn.datasets.samples_generator import make_blobs
 import numpy as np
 from scipy.stats import multivariate_normal
 
 
-# 0. Create dataset
-X, Y = make_blobs(cluster_std=1.5, random_state=20, n_samples=100, centers=3)
-
-# Stratch dataset to get ellipsoid data
-X = np.dot(X, np.random.RandomState(0).randn(2, 2))
-
-print("shape of x", np.shape(X))
-print("x", X)
-
-"""numpy.random.seed sets a seed value for the global instance of the numpy.random namespace.
-On the other hand, np.random.RandomState returns one instance of the RandomState and does not effect the global RandomState"""
-
-"""random.randn(3, 4) generates an 3x4 array of random number"""
 
 
 class GMM:
@@ -38,24 +24,7 @@ class GMM:
 
     def run(self):
         self.reg_cov = 1e-6 * np.identity(len(self.X[0]))
-        x, y = np.meshgrid(np.sort(self.X[:, 0]), np.sort(self.X[:, 1]))
 
-        """ x = [1,2,3,4]
-            y = [5,6,7,8]
-            x_1, y_1 = np.meshgrid(x, y)
-            x_1  is = 
-                [[1 2 3 4]
-                [1 2 3 4]
-                [1 2 3 4]
-                [1 2 3 4]]
-
-            y_1  is = 
-                [[5 5 5 5]
-                 [6 6 6 6]
-                 [7 7 7 7]
-                 [8 8 8 8]]  """
-
-        self.XY = np.array([x.flatten(), y.flatten()]).T
 
         """T is used to transpose """
 
@@ -153,6 +122,12 @@ class GMM:
         return prediction
 
 
-GMM = GMM(X, 2, 50)
-GMM.run()
-GMM.predict([[0.5, 0.5]])
+if __name__ == '__main__':
+    # Load a training set
+    trainingSet = np.load('training_set/yellowTrainingSet.npy')
+    print(trainingSet)
+    print(trainingSet.tolist())
+
+    GMM = GMM(trainingSet.tolist(), 2, 50)
+    GMM.run()
+    GMM.predict([[100, 100, 100]])
