@@ -21,7 +21,7 @@ for filename in glob.glob('training_set/green*.png'):
     imageList.append(image)
     imageHeights.append(height)
 
-
+# Determine max height of the images
 maxHeight = max(imageHeights)
 
 # Add black padding underneath images to make then the same height

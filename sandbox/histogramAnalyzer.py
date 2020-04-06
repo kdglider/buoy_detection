@@ -11,7 +11,7 @@ import cv2
 import matplotlib.pyplot as plt
 
 
-trainingImage = cv2.imread('training_set/orangeTrainingSet.png')
+trainingImage = cv2.imread('training_set/greenTrainingSet.png')
 trainingSet = []
 
 # Append pixel to trainingSet if it is not black
@@ -47,4 +47,5 @@ sp3.set_ylabel('Number of Pixels')
 plt.tight_layout()
 plt.show()
 
-
+# Save the training set
+np.save('TrainingSet', trainingSet)
