@@ -6,10 +6,9 @@ from scipy.stats import norm
 np.random.seed(0)
 
 
-X = np.linspace(-10, 10, num=50)
-X0 = X * np.random.rand(len(X)) + 15  # Create data cluster 1
-X1 = X * np.random.rand(len(X)) - 15  # Create data cluster 2
-X2 = X * np.random.rand(len(X))  # Create data cluster 3
+X0 = np.random.normal(loc=3, scale=3, size=50)
+X1 = np.random.normal(loc=1, scale=4, size=50)
+X2 = np.random.normal(loc=6, scale=5, size=50)
 X_tot = np.stack((X0, X1, X2)).flatten()  # Combine the clusters to get the random datapoints from above
 
 
@@ -93,14 +92,21 @@ class GM1D:
             self.mu = np.sum(self.X.reshape(len(self.X), 1) * r, axis=0) / m_c
 
             """calculate var_c"""
-            var_c = []
+            var_c_fake = []
 
             for c in range(len(r[0])):
                 var_c.append((1 / m_c[c]) * np.dot(((np.array(r[:, c]).reshape(150, 1)) * (self.X.reshape(len(self.X), 1) - self.mu[c])).T, (self.X.reshape(len(self.X), 1) - self.mu[c])))
 
             plt.show()
-            print("var c is ", var_c)
-            print(" type of var c is ", type(var_c))
+            var_c = []
+            var_c.append(var_c_fake[0][0][0])
+            var_c.append(var_c_fake[1][0][0])
+            var_c.append(var_c_fake[2][0][0])
+            self.var = var_c
+            print("self.var", self.var)
+
+        print("dekh",self.mu)
+        print("dekh2",self.var)
 
 
 GM1D = GM1D(X_tot, 10)
