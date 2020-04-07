@@ -193,12 +193,12 @@ class GMM:
 
 if __name__ == '__main__':
     # Load a training set
-    trainingSet = np.load('training_set/yellowTrainingSet.npy')
+    trainingSet = np.load('training_set/orangeTrainingSet.npy')
 
     gmm = GMM()
 
     # Train GMM
-    gmm.train(trainingSet, numClusters=2, iterations=10)
+    gmm.train(trainingSet, numClusters=6, iterations=30)
     
     # Save parameters
     gmm.save('gmmParams.npz')
