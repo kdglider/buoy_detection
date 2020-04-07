@@ -1,5 +1,5 @@
 '''
-Copyright (c) 2020 Hao Da (Kevin) Dong, Girish Ethirajan, Anshuman Singh
+Copyright (c) 2020 Hao Da (Kevin) Dong, Anshuman Singh
 @file       opencvGMMTest.py
 @date       2020/04/02
 @brief      TBD
