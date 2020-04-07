@@ -95,10 +95,12 @@ class GM1D:
             var_c_fake = []
 
             for c in range(len(r[0])):
-                var_c.append((1 / m_c[c]) * np.dot(((np.array(r[:, c]).reshape(150, 1)) * (self.X.reshape(len(self.X), 1) - self.mu[c])).T, (self.X.reshape(len(self.X), 1) - self.mu[c])))
+                var_c_fake.append((1 / m_c[c]) * np.dot(((np.array(r[:, c]).reshape(150, 1)) * (self.X.reshape(len(self.X), 1) - self.mu[c])).T, (self.X.reshape(len(self.X), 1) - self.mu[c])))
 
             plt.show()
+
             var_c = []
+
             var_c.append(var_c_fake[0][0][0])
             var_c.append(var_c_fake[1][0][0])
             var_c.append(var_c_fake[2][0][0])
@@ -109,5 +111,7 @@ class GM1D:
         print("dekh2",self.var)
 
 
-GM1D = GM1D(X_tot, 10)
+GM1D = GM1D(X_tot, 5)
 GM1D.run()
+
+
